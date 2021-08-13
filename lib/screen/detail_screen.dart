@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:marketplace/model/bicycle.dart';
+import 'package:marketplace/model/cart.dart';
+import 'package:marketplace/util/badge.dart';
 import 'package:marketplace/util/widget.dart';
 
 class DetailScreen extends StatefulWidget {
@@ -47,11 +49,14 @@ class _DetailScreenState extends State<DetailScreen> {
                         Stack(
                           children: [
                             IconButton(
+                                onPressed: () {},
                                 icon: Icon(
                                   Icons.shopping_cart_outlined,
                                   color: Colors.black,
-                                ),
-                                onPressed: () {})
+                                )),
+                            cartList.length > 0
+                                ? Badge(numberValue:(cartList.length).toString())
+                                : Container()
                           ],
                         )
                       ],
@@ -120,7 +125,7 @@ class _DetailScreenState extends State<DetailScreen> {
                             ElevatedButton(
                                 onPressed: () {},
                                 style: ElevatedButton.styleFrom(
-                                  padding: EdgeInsets.all(14.0),
+                                    padding: EdgeInsets.all(14.0),
                                     primary: Color.fromARGB(0, 255, 255, 255)),
                                 child: Icon(Icons.add_shopping_cart_outlined)),
                             Expanded(
@@ -128,7 +133,8 @@ class _DetailScreenState extends State<DetailScreen> {
                                 margin: EdgeInsets.only(left: 16),
                                 child: ElevatedButton(
                                     style: ElevatedButton.styleFrom(
-                                        primary: Color.fromARGB(1000, 4, 93, 42),
+                                        primary:
+                                            Color.fromARGB(1000, 4, 93, 42),
                                         padding: EdgeInsets.all(16.0)),
                                     onPressed: () {},
                                     child: Text(
