@@ -74,7 +74,7 @@ class HomeScreen extends StatelessWidget {
                           borderRadius: BorderRadius.circular(12),
                           child: Container(
                             padding: EdgeInsets.all(10),
-                            child: Image.network(bike.bikeImage),
+                            child: Image.network(bike.bikeImage, width: MediaQuery.of(context).size.width * 0.5 - 20, height: MediaQuery.of(context).size.height * 0.2 - 40),
                             decoration: BoxDecoration(color: bike.bikeColor),
                           ),
                         ),
