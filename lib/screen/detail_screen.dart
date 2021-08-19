@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:marketplace/model/bicycle.dart';
 import 'package:marketplace/model/cart.dart';
+import 'package:marketplace/screen/cart_screen.dart';
 import 'package:marketplace/util/badge.dart';
 import 'package:marketplace/util/widget.dart';
 
@@ -49,7 +50,11 @@ class _DetailScreenState extends State<DetailScreen> {
                         Stack(
                           children: [
                             IconButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  Navigator.push(context, MaterialPageRoute(builder: (context){
+                                    return CartScreen();
+                                  })).then((value) => setState((){}));
+                                },
                                 icon: Icon(
                                   Icons.shopping_cart_outlined,
                                   color: Colors.black,
