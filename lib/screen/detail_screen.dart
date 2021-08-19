@@ -2,13 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:marketplace/model/bicycle.dart';
 import 'package:marketplace/model/cart.dart';
 import 'package:marketplace/screen/cart_screen.dart';
+import 'package:marketplace/screen/checkout_screen.dart';
 import 'package:marketplace/util/badge.dart';
 import 'package:marketplace/util/widget.dart';
+import 'package:collection/collection.dart';
+
 
 class DetailScreen extends StatefulWidget {
   final Bicycle bicycle;
 
-  const DetailScreen({this.bicycle});
+  const DetailScreen({required this.bicycle});
 
   @override
   _DetailScreenState createState() => _DetailScreenState();
@@ -47,20 +50,22 @@ class _DetailScreenState extends State<DetailScreen> {
                             Navigator.pop(context);
                           },
                         ),
-                        Stack(
+                        Stack(alignment: Alignment.topRight,
                           children: [
                             IconButton(
                                 onPressed: () {
-                                  Navigator.push(context, MaterialPageRoute(builder: (context){
-                                    return CartScreen();
-                                  })).then((value) => setState((){}));
+                                  Navigator.push(context,
+                                      MaterialPageRoute(builder: (context) {
+                                        return CartScreen();
+                                      })).then((value) => setState(() {}));
                                 },
                                 icon: Icon(
                                   Icons.shopping_cart_outlined,
                                   color: Colors.black,
                                 )),
                             cartList.length > 0
-                                ? Badge(numberValue:(cartList.length).toString())
+                                ? Badge(
+                                numberValue: (cartList.length).toString())
                                 : Container()
                           ],
                         )
@@ -76,9 +81,9 @@ class _DetailScreenState extends State<DetailScreen> {
                 elevation: 0,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(20),
-                  topRight: Radius.circular(20),
-                )),
+                      topLeft: Radius.circular(20),
+                      topRight: Radius.circular(20),
+                    )),
                 child: Padding(
                   padding: EdgeInsets.symmetric(vertical: 24, horizontal: 16),
                   child: Column(
@@ -128,7 +133,9 @@ class _DetailScreenState extends State<DetailScreen> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             ElevatedButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  addToCart(widget.bicycle.bikeId, context);
+                                },
                                 style: ElevatedButton.styleFrom(
                                     padding: EdgeInsets.all(14.0),
                                     primary: Color.fromARGB(0, 255, 255, 255)),
@@ -139,9 +146,13 @@ class _DetailScreenState extends State<DetailScreen> {
                                 child: ElevatedButton(
                                     style: ElevatedButton.styleFrom(
                                         primary:
-                                            Color.fromARGB(1000, 4, 93, 42),
+                                        Color.fromARGB(1000, 4, 93, 42),
                                         padding: EdgeInsets.all(16.0)),
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      Navigator.push(context, MaterialPageRoute(builder: (context) {
+                                        return CheckoutScreen();
+                                      }));
+                                    },
                                     child: Text(
                                       'Buy Now',
                                       style: TextStyle(color: Colors.white),
@@ -161,4 +172,23 @@ class _DetailScreenState extends State<DetailScreen> {
       ),
     );
   }
+
+  void addToCart(bikeId, context) {
+    bool isItemExist = false;
+    if (cartList.firstWhereOrNull((cartItem) => cartItem.bikeId == bikeId) !=
+        null) {
+      isItemExist = true;
+    }
+    if(isItemExist){
+      final snackBar = SnackBar(content: Text('Item already in cart !'));
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    }else{
+      setState(() {
+        cartList.add(Cart(bikeId: bikeId));
+      });
+      final snackBar = SnackBar(content: Text('Item added to cart !'));
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    }
+  }
 }
+

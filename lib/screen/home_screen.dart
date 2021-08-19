@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:marketplace/model/bicycle.dart';
+import 'package:marketplace/screen/cart_screen.dart';
 import 'package:marketplace/screen/detail_screen.dart';
+import 'package:marketplace/screen/info_screen.dart';
 import 'package:marketplace/util/widget.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -29,13 +30,21 @@ class HomeScreen extends StatelessWidget {
                 Icons.shopping_cart_outlined,
                 color: Colors.black,
               ),
-              onPressed: () {}),
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  return CartScreen();
+                }));
+              }),
           IconButton(
               icon: Icon(
                 Icons.person_outline,
                 color: Colors.black,
               ),
-              onPressed: () {})
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  return InfoScreen();
+                }));
+              })
         ],
       ),
       body: Container(

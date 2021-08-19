@@ -10,13 +10,13 @@ class Bicycle {
   Color bikeColor;
 
   Bicycle(
-      {this.bikeId,
-      this.bikeName,
-      this.bikePrice,
-      this.bikeDescriptions,
-      this.bikeImage,
-      this.bikeBrand,
-      this.bikeColor});
+      {required this.bikeId,
+      required this.bikeName,
+      required this.bikePrice,
+      required this.bikeDescriptions,
+      required this.bikeImage,
+      required this.bikeBrand,
+      required this.bikeColor});
 }
 
 var bikeList = [

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class Badge extends StatelessWidget {
   final String numberValue;
 
-  Badge({this.numberValue});
+  Badge({required this.numberValue});
 
   @override
   Widget build(BuildContext context) {
